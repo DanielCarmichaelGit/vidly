@@ -1,59 +1,50 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import Input from "./common/input";
+import { validate } from "../utils/validate";
 
-class LoginForm extends Component {
-  state = {
-    account: { username: "", password: "" },
-  };
+const LoginForm = () => {
+    const [account, setAccount] = useState({username:'',password:''});
+    const [errors, setErrors] = useState({});
+    const authDefaults = {username:'username is required', password:'password is required'};
 
-  username = React.createRef();
-  password = React.createRef();
+    function handleChange(e) {
+        const currentAccount = account;
+        const accountState = {...currentAccount};
+        accountState[e.target.name] = e.target.value;
+        setAccount(accountState);
+    }
 
-  handleSubmit = (e) => {
-    e.preventDefault();
+    function handleSubmit(e) {
+        e.preventDefault();
+        const { validatedErrors } = validate(account);
+        setErrors({...validatedErrors});
+    }
 
-    console.log("Submitted");
-    const username = this.username.current.value;
-  };
-
-  handleChange = ({ currentTarget: input}) => {
-    const account = { ...this.state.account };
-    account[input.name] = input.value;
-    console.log("change");
-    this.setState({ account });
-  };
-
-  render() {
-    const { account } = this.state;
-    const { username, password } = React.createRef();
+    useEffect(() => {
+        console.log(errors)
+    }, [errors]);
 
     return (
-      <div>
-        <h1>Login</h1>
-        <form onSubmit={this.handleSubmit}>
+        <form className="form" onSubmit={handleSubmit}>
             <Input
-                name="username"
+                name={'username'}
+                label={'username'}
                 value={account.username}
-                ref={username}
-                label="Username"
                 autoFocus={true}
-                onChange={this.handleChange}
+                type={'text'}
+                onChange={handleChange}
             />
             <Input
-                name="password"
+                name={'password'}
+                label={'password'}
                 value={account.password}
-                ref={password}
-                label="Password"
                 autoFocus={false}
-                onChange={this.handleChange}
+                type={'password'}
+                onChange={handleChange}
             />
-            <button type="submit" className="btn btn-primary">
-                Login
-            </button>
+            <button type='submit' className="btn btn-primary">Login</button>
         </form>
-      </div>
     );
-  }
 }
 
 export default LoginForm;
