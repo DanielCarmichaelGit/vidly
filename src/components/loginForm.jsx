@@ -5,7 +5,6 @@ import { validate } from "../utils/validate";
 const LoginForm = () => {
     const [account, setAccount] = useState({username:'',password:''});
     const [errors, setErrors] = useState({});
-    const authDefaults = {username:'username is required', password:'password is required'};
 
     function handleChange(e) {
         const currentAccount = account;
