@@ -13,11 +13,7 @@ export function validate(
   // create an error for aKey
 
   _.map(valueKeys, (aKey) => {
-    if (!values[aKey]) {
-      console.log(values[aKey])
-      console.log(`${aKey} empty`)
-    }
-    else {
+    if (values[aKey]) {
       if (!validationFilter.test(values[aKey])) {
         validationErrors[
           aKey

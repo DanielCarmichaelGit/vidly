@@ -27,7 +27,7 @@ const Form = (props) => {
                         label={obj.label}
                         placeholder={obj.placeholder}
                         type={obj.type}
-                        errorMessage={errors[obj.name]}
+                        errorMessage={errors ? errors[obj.name] : "failed"}
                         onChange={handleChange}
                     />
                 )

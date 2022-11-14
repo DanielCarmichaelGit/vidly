@@ -2,7 +2,7 @@ import React, { useState, useEffect} from "react";
 import Form from "./common/form";
 
 import { validate } from "../utils/validations";
-import { loginForm } from "../utils/Forms/loginForm";
+import { loginForm } from "../Builds/Forms/loginForm";
 
 const LoginForm = () => {
     const [values, setValues] = useState({
