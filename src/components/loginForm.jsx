@@ -1,6 +1,8 @@
-import React, { useState } from "react";
-import Input from "./common/input";
-import { validate } from '../utils/validate';
+import React, { useState, useEffect} from "react";
+import Form from "./common/form";
+
+import { validate } from "../utils/validations";
+import { loginForm } from "../utils/Forms/loginForm";
 
 const LoginForm = () => {
     const [values, setValues] = useState({
@@ -9,56 +11,31 @@ const LoginForm = () => {
     });
     const [errors, setErrors] = useState({});
 
-    const loginForm = [
-        {
-            name: 'username',
-            type: 'text',
-            placeholder: 'Username',
-            label: 'Username',
-            errorMessage: 'Username is required',
-            required: true
-        },
-        {
-            name: 'password',
-            type: 'password',
-            placeholder: 'password',
-            label: 'Password',
-            errorMessage: 'Password is required',
-            required: true
-        }
-    ]
-
     function handleSubmit(e) {
         e.preventDefault();
+        setErrors({...validate()});
     }
 
     function handleChange(e) {
         setValues({ ...values, [e.target.name]: e.target.value })
-
-        setErrors({...validate(values).validatedErrors})
-        console.log(errors)
     }
 
+    useEffect(() => {
+        setErrors({...validate(values)});
+    }, [values]);
+
     return (
-        <form className="rounded bg-light p-5" onSubmit={handleSubmit}>
-            <h1 className="display-4 font-weight-bold mb-5 text-lg-center">Login</h1>
-            {   
-                loginForm.map(obj => (
-                    <Input
-                        key={obj.name}
-                        name={obj.name}
-                        label={obj.label}
-                        placeholder={obj.placeholder}
-                        type={obj.type}
-                        value={values[obj.name]}
-                        errorMessage={obj.errorMessage}
-                        onChange={handleChange}
-                    />
-                )
-                )
-            }
-            <button type='submit' className="btn btn-primary w-100 mt-4">Login</button>
-        </form>
+        <div>
+            <Form
+                handleSubmit={handleSubmit}
+                formLabel={'Login'}
+                importedForm={loginForm}
+                btnText={'Login'}
+                disabled={values.username && values.password && Object.keys(errors).length === 0 ? false : true}
+                errors={errors}
+                handleChange={handleChange}
+            />
+        </div>
     );
 }
 
