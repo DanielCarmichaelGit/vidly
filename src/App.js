@@ -7,6 +7,8 @@ import Rentals from './components/rentals';
 import Movie from './components/movie';
 import NotFound from './components/common/notFound';
 import LoginForm from './components/loginForm';
+import Counter from './components/testing/count';
+import CounterIssue from './components/testing/countErrors';
 import './App.css';
 
 function App() {
@@ -19,6 +21,8 @@ function App() {
           <Route path='/movies' exact element={<MovieList />}/>
           <Route path='/customers' element={<Customers />}/>
           <Route path='/rentals' element={<Rentals />}/>
+          <Route path='/counter' element={<Counter />}/>
+          <Route path='/counter-with-issue' element={<CounterIssue />}/>
           <Route path='/not-found' element={<NotFound />}/>
           <Route path='/' element={<Navigate to='/movies' exact replace/>}/>
           <Route path='/movies/:id' element={<Movie/>}/>

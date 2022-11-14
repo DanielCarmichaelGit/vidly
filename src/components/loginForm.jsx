@@ -1,49 +1,66 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Input from "./common/input";
-import { validate } from "../utils/validate";
+import { validate } from '../utils/validate';
 
 const LoginForm = () => {
-    const [account, setAccount] = useState({username:'',password:''});
+    const [values, setValues] = useState({
+        username: '',
+        password: ''
+    });
     const [errors, setErrors] = useState({});
 
-    function handleChange(e) {
-        const currentAccount = account;
-        const accountState = {...currentAccount};
-        accountState[e.target.name] = e.target.value;
-        setAccount(accountState);
-    }
+    const loginForm = [
+        {
+            name: 'username',
+            type: 'text',
+            placeholder: 'Username',
+            label: 'Username',
+            errorMessage: 'Username is required',
+            required: true
+        },
+        {
+            name: 'password',
+            type: 'password',
+            placeholder: 'password',
+            label: 'Password',
+            errorMessage: 'Password is required',
+            required: true
+        }
+    ]
 
     function handleSubmit(e) {
         e.preventDefault();
-        const { validatedErrors } = validate(account);
-        setErrors({...validatedErrors});
     }
 
-    useEffect(() => {
+    function handleChange(e) {
+        setValues({ ...values, [e.target.name]: e.target.value })
+
+        setErrors({...validate(values).validatedErrors})
         console.log(errors)
-    }, [errors]);
+    }
 
     return (
-        <form className="form" onSubmit={handleSubmit}>
-            <Input
-                name={'username'}
-                label={'username'}
-                value={account.username}
-                autoFocus={true}
-                type={'text'}
-                onChange={handleChange}
-            />
-            <Input
-                name={'password'}
-                label={'password'}
-                value={account.password}
-                autoFocus={false}
-                type={'password'}
-                onChange={handleChange}
-            />
-            <button type='submit' className="btn btn-primary">Login</button>
+        <form className="rounded bg-light p-5" onSubmit={handleSubmit}>
+            <h1 className="display-4 font-weight-bold mb-5 text-lg-center">Login</h1>
+            {   
+                loginForm.map(obj => (
+                    <Input
+                        key={obj.name}
+                        name={obj.name}
+                        label={obj.label}
+                        placeholder={obj.placeholder}
+                        type={obj.type}
+                        value={values[obj.name]}
+                        errorMessage={obj.errorMessage}
+                        onChange={handleChange}
+                    />
+                )
+                )
+            }
+            <button type='submit' className="btn btn-primary w-100 mt-4">Login</button>
         </form>
     );
 }
+
 
 export default LoginForm;
