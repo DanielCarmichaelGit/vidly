@@ -21,9 +21,9 @@ const LoginForm = () => {
         setErrors({ ...validate(values) });
     }
 
-    // useEffect(() => {
-    //     setErrors({...validate(values)});
-    // }, [values]);
+    useEffect(() => {
+        setErrors({...validate(values)});
+    }, [values]);
 
     return (
         <div>
