@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Form from "./common/form";
 
 import { validate } from "../utils/validations";
@@ -13,16 +13,17 @@ const LoginForm = () => {
 
     function handleSubmit(e) {
         e.preventDefault();
-        setErrors({...validate()});
+        setErrors({ ...validate() });
     }
 
     function handleChange(e) {
         setValues({ ...values, [e.target.name]: e.target.value })
+        setErrors({ ...validate(values) });
     }
 
-    useEffect(() => {
-        setErrors({...validate(values)});
-    }, [values]);
+    // useEffect(() => {
+    //     setErrors({...validate(values)});
+    // }, [values]);
 
     return (
         <div>
