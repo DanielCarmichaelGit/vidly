@@ -13,12 +13,10 @@ const LoginForm = () => {
 
     function handleSubmit(e) {
         e.preventDefault();
-        setErrors({ ...validate() });
     }
 
     function handleChange(e) {
         setValues({ ...values, [e.target.name]: e.target.value })
-        setErrors({ ...validate(values) });
     }
 
     useEffect(() => {
