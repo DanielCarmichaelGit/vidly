@@ -7,6 +7,7 @@ import Rentals from './components/rentals';
 import Movie from './components/movie';
 import NotFound from './components/common/notFound';
 import LoginForm from './components/loginForm';
+import RegisterForm from './components/registerForm';
 import './App.css';
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
       <main className="container">
         <Routes>
           <Route path='/login' exact element={<LoginForm />}/>
+          <Route path='/register' exact element={<RegisterForm />}/>
           <Route path='/movies' exact element={<MovieList />}/>
           <Route path='/customers' element={<Customers />}/>
           <Route path='/rentals' element={<Rentals />}/>
